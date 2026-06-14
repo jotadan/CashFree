@@ -14,9 +14,11 @@
   };
   var brl = function (v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); };
   var pts = function (v) { return v.toLocaleString('pt-BR') + ' pts'; };
-  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
-    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
-  }); };
+  var esc = function (s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  };
 
   // ============ NAVBAR ============
   function initNav() {
@@ -124,11 +126,11 @@
 
     $('#panel-visao').innerHTML =
       '<div class="grid grid--2">' +
-        '<div class="card"><h3 style="color:var(--ink-900);font-size:1.1rem">Cashback por programa</h3>' +
-          '<p class="muted">Distribuição do seu dinheiro de volta.</p><div style="margin-top:20px">' + bars + '</div></div>' +
-        '<div class="card"><h3 style="color:var(--ink-900);font-size:1.1rem">Pontos e milhas</h3>' +
-          '<p class="muted">Saldos acumulados em programas de fidelidade.</p>' +
-          '<div class="points-grid">' + ptItems + '</div></div>' +
+      '<div class="card"><h3 style="color:var(--ink-900);font-size:1.1rem">Cashback por programa</h3>' +
+      '<p class="muted">Distribuição do seu dinheiro de volta.</p><div style="margin-top:20px">' + bars + '</div></div>' +
+      '<div class="card"><h3 style="color:var(--ink-900);font-size:1.1rem">Pontos e milhas</h3>' +
+      '<p class="muted">Saldos acumulados em programas de fidelidade.</p>' +
+      '<div class="points-grid">' + ptItems + '</div></div>' +
       '</div>';
   }
 
@@ -241,8 +243,8 @@
       var active = activatedStores.indexOf(s.id) !== -1;
       var hl = s.highlight
         ? (s.highlight === 'Melhor oportunidade'
-            ? '<span class="chip" style="background:var(--brand-600);color:#fff">' + s.highlight + '</span>'
-            : '<span class="chip ' + hlCls[s.highlight] + '">' + s.highlight + '</span>')
+          ? '<span class="chip" style="background:var(--brand-600);color:#fff">' + s.highlight + '</span>'
+          : '<span class="chip ' + hlCls[s.highlight] + '">' + s.highlight + '</span>')
         : '';
       var coupon = s.coupon ? '<div class="store__coupon">🎟️ ' + esc(s.coupon) + '</div>' : '';
       var btn = active
@@ -406,6 +408,217 @@
     });
   }
 
+  // ============ PLANOS DE ASSINATURA ============
+  function initPlans() {
+    var grid = $('#plansGrid');
+    var cardCls = { free: '', economiza: 'plan-card--popular', 'economiza-plus': 'plan-card--premium' };
+
+    grid.innerHTML = D.plans.tiers.map(function (tier) {
+      var badge = tier.badge ? '<span class="plan-card__badge">' + esc(tier.badge) + '</span>' : '';
+      var price = tier.price === 0
+        ? 'R$ 0,00<span> /mês</span>'
+        : brl(tier.price) + '<span> /mês</span>';
+      var features = tier.highlights.map(function (h) {
+        return '<li class="plan-card__feature"><span class="ico">✓</span><span>' + esc(h) + '</span></li>';
+      }).join('');
+      var btnCls = tier.id === 'free' ? 'btn--secondary' : 'btn--primary';
+
+      return '<div class="card plan-card ' + (cardCls[tier.id] || '') + '">' +
+        badge +
+        '<p class="plan-card__name">' + esc(tier.name) + '</p>' +
+        '<p class="plan-card__desc">' + esc(tier.desc) + '</p>' +
+        '<p class="plan-card__price">' + price + '</p>' +
+        '<ul class="plan-card__features">' + features + '</ul>' +
+        '<button class="btn ' + btnCls + ' btn--block" data-plan="' + tier.id + '">' + esc(tier.cta) + '</button>' +
+        '</div>';
+    }).join('');
+
+    grid.querySelectorAll('[data-plan]').forEach(function (b) {
+      b.addEventListener('click', function () { openModal('registerOverlay'); });
+    });
+
+    // Tabela comparativa completa
+    var head = '<tr><th>Benefício</th>' + D.plans.tiers.map(function (tier, i) {
+      var hlCls = i === 1 ? 'hl-popular' : (i === 2 ? 'hl-premium' : '');
+      var badge = tier.badge ? '<span class="th-badge">' + esc(tier.badge) + '</span>' : '';
+      return '<th class="' + hlCls + '">' + esc(tier.name) + badge + '</th>';
+    }).join('') + '</tr>';
+
+    var rows = D.plans.benefits.map(function (b) {
+      var cells = b.values.map(function (v, i) {
+        var hlCls = i === 1 ? 'hl-popular' : (i === 2 ? 'hl-premium' : '');
+        var content;
+        if (v === true) content = '<span class="mark mark--yes">✓</span>';
+        else if (v === false) content = '<span class="mark mark--no">✕</span>';
+        else content = '<span class="cell-text">' + esc(v) + '</span>';
+        return '<td class="' + hlCls + '">' + content + '</td>';
+      }).join('');
+      return '<tr><td><span class="name">' + esc(b.label) + '</span></td>' + cells + '</tr>';
+    }).join('');
+
+    $('#plansTableWrap').innerHTML = '<table><thead>' + head + '</thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  // ============ MODAIS: LOGIN / CADASTRO ============
+  var activeModal = null;
+  var lastFocused = null;
+
+  function openModal(id) {
+    var overlay = $('#' + id);
+    if (!overlay) return;
+    if (activeModal && activeModal !== overlay) closeModal(activeModal.id, true);
+    lastFocused = document.activeElement;
+    overlay.removeAttribute('hidden');
+    requestAnimationFrame(function () { overlay.classList.add('is-open'); });
+    activeModal = overlay;
+    document.body.style.overflow = 'hidden';
+    var firstInput = overlay.querySelector('input');
+    if (firstInput) setTimeout(function () { firstInput.focus(); }, 250);
+  }
+
+  function closeModal(id, skipFocusRestore) {
+    var overlay = $('#' + id);
+    if (!overlay) return;
+    overlay.classList.remove('is-open');
+    setTimeout(function () { overlay.setAttribute('hidden', ''); }, 250);
+    if (activeModal === overlay) activeModal = null;
+    document.body.style.overflow = '';
+    if (!skipFocusRestore && lastFocused) lastFocused.focus();
+  }
+
+  function clearErrors(form) {
+    form.querySelectorAll('.field__error').forEach(function (e) { e.textContent = ''; });
+    form.querySelectorAll('input').forEach(function (i) { i.classList.remove('is-invalid'); });
+  }
+
+  function setError(input, errorEl, message) {
+    input.classList.add('is-invalid');
+    errorEl.textContent = message;
+  }
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function showSuccess(form, title, text) {
+    var wrap = form.closest('.modal');
+    var success = el(
+      '<div class="modal__success">' +
+      '<span class="ico">✓</span>' +
+      '<h3>' + esc(title) + '</h3>' +
+      '<p>' + text + '</p>' +
+      '<button class="btn btn--primary btn--block" data-success-close="1">Fechar</button>' +
+      '</div>'
+    );
+    form.replaceWith(success);
+    success.querySelector('[data-success-close]').addEventListener('click', function () {
+      var overlay = wrap.closest('.modal-overlay');
+      closeModal(overlay.id);
+    });
+  }
+
+  function initAuthModals() {
+    var overlays = ['loginOverlay', 'registerOverlay'];
+
+    // Abrir modais (desktop + mobile)
+    [['#openLogin', 'loginOverlay'], ['#openLoginMobile', 'loginOverlay'],
+    ['#openRegister', 'registerOverlay'], ['#openRegisterMobile', 'registerOverlay']]
+      .forEach(function (pair) {
+        var trigger = $(pair[0]);
+        if (trigger) trigger.addEventListener('click', function () {
+          var mobile = $('#navMobile');
+          if (!mobile.hasAttribute('hidden')) { mobile.setAttribute('hidden', ''); $('#navToggle').setAttribute('aria-expanded', 'false'); }
+          openModal(pair[1]);
+        });
+      });
+
+    // Fechar modais: botão de fechar, clique no overlay, tecla ESC
+    overlays.forEach(function (id) {
+      var overlay = $('#' + id);
+      $('#' + id.replace('Overlay', 'Close')).addEventListener('click', function () { closeModal(id); });
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeModal(id);
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && activeModal) closeModal(activeModal.id);
+    });
+
+    // Alternar entre login e cadastro
+    $('#goToRegister').addEventListener('click', function (e) { e.preventDefault(); closeModal('loginOverlay'); openModal('registerOverlay'); });
+    $('#goToLogin').addEventListener('click', function (e) { e.preventDefault(); closeModal('registerOverlay'); openModal('loginOverlay'); });
+
+    // Esqueci minha senha
+    $('#forgotPasswordLink').addEventListener('click', function (e) {
+      e.preventDefault();
+      $('#forgotPasswordHint').removeAttribute('hidden');
+    });
+
+    // ---- Formulário de login ----
+    var loginForm = $('#loginForm');
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearErrors(loginForm);
+      var email = $('#loginEmail'), password = $('#loginPassword');
+      var ok = true;
+
+      if (!email.value.trim()) { setError(email, $('#loginEmailError'), 'Informe seu e-mail.'); ok = false; }
+      else if (!isValidEmail(email.value.trim())) { setError(email, $('#loginEmailError'), 'Informe um e-mail válido.'); ok = false; }
+
+      if (!password.value) { setError(password, $('#loginPasswordError'), 'Informe sua senha.'); ok = false; }
+
+      if (!ok) return;
+
+      // 1. Salvar sessão no localStorage
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userEmail", email.value.trim());
+      // Como não temos o nome no login, podemos deixar genérico ou buscar de uma base de dados real no futuro
+      if (!localStorage.getItem("userName")) {
+        localStorage.setItem("userName", "Usuário");
+      }
+
+      // 2. Exibir feedback visual e redirecionar
+      showSuccess(loginForm, 'Login realizado! 🎉', 'Redirecionando para o seu dashboard...');
+      setTimeout(function () {
+        window.location.href = "dashboard.html";
+      }, 1500); // Aguarda 1.5 segundos para o usuário ler a mensagem
+    });
+
+    // ---- Formulário de cadastro ----
+    // ---- Formulário de cadastro ----
+    var registerForm = $('#registerForm');
+    registerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearErrors(registerForm);
+      var name = $('#regName'), email = $('#regEmail'), password = $('#regPassword'), confirm = $('#regConfirm');
+      var ok = true;
+
+      if (!name.value.trim()) { setError(name, $('#regNameError'), 'Informe seu nome completo.'); ok = false; }
+
+      if (!email.value.trim()) { setError(email, $('#regEmailError'), 'Informe seu e-mail.'); ok = false; }
+      else if (!isValidEmail(email.value.trim())) { setError(email, $('#regEmailError'), 'Informe um e-mail válido.'); ok = false; }
+
+      if (!password.value) { setError(password, $('#regPasswordError'), 'Crie uma senha.'); ok = false; }
+      else if (password.value.length < 8) { setError(password, $('#regPasswordError'), 'A senha deve ter no mínimo 8 caracteres.'); ok = false; }
+
+      if (!confirm.value) { setError(confirm, $('#regConfirmError'), 'Confirme sua senha.'); ok = false; }
+      else if (confirm.value !== password.value) { setError(confirm, $('#regConfirmError'), 'As senhas não coincidem.'); ok = false; }
+
+      if (!ok) return;
+
+      // 1. Salvar sessão no localStorage
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userName", name.value.trim());
+      localStorage.setItem("userEmail", email.value.trim());
+
+      // 2. Exibir feedback visual e redirecionar
+      showSuccess(registerForm, 'Conta criada com sucesso! 🎉', 'Preparando o seu ambiente CashFree...');
+      setTimeout(function () {
+        window.location.href = "dashboard.html";
+      }, 1500); // Aguarda 1.5 segundos para o usuário ler a mensagem
+    });
+  }
+
   // ============ LISTA DE ESPERA ============
   function initWaitlist() {
     var form = $('#waitlistForm');
@@ -432,6 +645,8 @@
     initStores();
     initExtension();
     initComparison();
+    initPlans();
+    initAuthModals();
     initSimulator();
     initArchitecture();
     initWaitlist();

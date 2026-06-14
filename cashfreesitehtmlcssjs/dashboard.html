@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CashFree — Gerenciamento</title>
+  <style>
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400..600,1,0"
+    rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo">
+      <img src="/cashfreesitehtmlcssjs/favicon.svg" alt="CashFree" class="logo-icon">
+      CashFree
+    </div>
+    <div class="topbar-center">
+      <div class="page-title" id="topbarTitle">Visão Geral</div>
+      <div class="page-subtitle">Acompanhe e gerencie todos os seus pontos e cashbacks.</div>
+    </div>
+    <div class="topbar-right">
+      <button class="btn-connect">+ Conectar nova conta</button>
+      <div class="notif" title="Notificações"><span class="material-symbols-rounded">notifications</span>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="avatar">B</div>
+      <span class="user-label">Olá, Bárbara</span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <nav>
+      <div class="nav-item active" data-page="visao-geral">
+        <span class="icon"><span class="material-symbols-rounded">dashboard</span></span> Visão Geral
+      </div>
+      <div style="height:8px"></div>
+      <div class="nav-section">Gerenciamento</div>
+      <div class="nav-item" data-page="cashbacks">
+        <span class="icon"><span class="material-symbols-rounded">payments</span></span> Cashbacks
+      </div>
+      <div class="nav-item" data-page="pontos">
+        <span class="icon"><span class="material-symbols-rounded">star</span></span> Pontos
+      </div>
+      <div class="nav-item" data-page="extrato">
+        <span class="icon"><span class="material-symbols-rounded">description</span></span> Extrato
+      </div>
+      <div class="nav-item" data-page="resgates">
+        <span class="icon"><span class="material-symbols-rounded">featured_seasonal_and_gifts</span></span> Resgates
+      </div>
+      <div class="nav-item" data-page="alertas">
+        <span class="icon"><span class="material-symbols-rounded">notifications</span></span> Alertas
+      </div>
+      <div style="height:8px"></div>
+      <div class="nav-section">Configurações</div>
+      <div class="nav-item" data-page="contas">
+        <span class="icon"><span class="material-symbols-rounded">link</span></span> Contas Conectadas
+      </div>
+      <div class="nav-item" data-page="preferencias">
+        <span class="icon"><span class="material-symbols-rounded">settings</span></span> Preferências
+      </div>
+      <div class="nav-item" data-page="perfil">
+        <span class="icon"><span class="material-symbols-rounded">person</span></span> Perfil
+      </div>
+      <div class="nav-item" data-page="ajuda">
+        <span class="icon"><span class="material-symbols-rounded">help</span></span> Ajuda
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="invite-card">
+        <h4>Indique e ganhe</h4>
+        <p>Convide amigos e ganhe R$ 10,00 de cashback!</p>
+        <button class="invite-btn">Convidar amigos</button>
+      </div>
+      <div class="nav-logout" style="margin-top:8px">
+        <span><span class="material-symbols-rounded">logout</span></span> Sair
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+
+    <!-- ===== VISÃO GERAL ===== -->
+    <div class="page active" id="page-visao-geral">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#ECFDF5"><span class="material-symbols-rounded">credit_card</span>
+          </div>
+          <div>
+            <div class="stat-label">Saldo total em cashback</div>
+            <div class="stat-value">R$ 678,90</div>
+            <div class="stat-sub">Disponível para saque</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#dcfce7"><span class="material-symbols-rounded">star</span></div>
+          <div>
+            <div class="stat-label">Pontos acumulados</div>
+            <div class="stat-value">12.450 pts</div>
+            <div class="stat-sub">Equivalem a R$ 124,50</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fff3e0"><span class="material-symbols-rounded">alarm</span></div>
+          <div>
+            <div class="stat-label">Em breve para expirar</div>
+            <div class="stat-value">2.340 pts</div>
+            <div class="stat-sub">Expiram nos próximos 30 dias</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#dbeafe"><span class="material-symbols-rounded">link</span></div>
+          <div>
+            <div class="stat-label">Contas conectadas</div>
+            <div class="stat-value">6</div>
+            <div class="stat-sub">Plataformas ativas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-layout">
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <div class="tabs">
+                <button class="tab active">Todos</button>
+                <button class="tab">Cashbacks</button>
+                <button class="tab">Pontos</button>
+                <button class="tab">Em breve para expirar</button>
+                <button class="tab">Expirados</button>
+              </div>
+            </div>
+            <div class="card-header" style="padding-top:10px;padding-bottom:10px;border-top:none">
+              <div class="search-box">
+                <span><span class="material-symbols-rounded">search</span></span>
+                <input type="text" placeholder="Buscar por loja ou plataforma...">
+              </div>
+              <button class="btn-ghost">🔽 Filtrar</button>
+              <button class="btn-ghost">Ordenar: Mais recentes ▾</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Programa</th>
+                  <th>Saldo</th>
+                  <th>Valor estimado</th>
+                  <th>Expira em</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="program-cell">
+                      <div class="prog-logo" style="background:#e91e8c">L</div>
+                      <div>
+                        <div class="prog-name">Livelo</div>
+                        <div class="prog-url">livelo.com.br</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>5.200 pts</td>
+                  <td>R$ 52,00</td>
+                  <td><span style="color:var(--orange);font-weight:600">18/06/2026</span></td>
+                  <td><button class="btn-detail">Resgatar</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="program-cell">
+                      <div class="prog-logo" style="background:#003d8f">i</div>
+                      <div>
+                        <div class="prog-name">Itaú</div>
+                        <div class="prog-url">itau.com.br</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>3.100 pts</td>
+                  <td>R$ 31,00</td>
+                  <td><span style="color:var(--red);font-weight:600">18/06/2026</span></td>
+                  <td><button class="btn-detail">Resgatar</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="program-cell">
+                      <div class="prog-logo" style="background:#059669">E</div>
+                      <div>
+                        <div class="prog-name">Esfera</div>
+                        <div class="prog-url">esfera.com.vc</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>4.150 pts</td>
+                  <td>R$ 41,50</td>
+                  <td><span style="color:var(--red);font-weight:600">18/06/2026</span></td>
+                  <td><button class="btn-detail">Resgatar</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="program-cell">
+                      <div class="prog-logo" style="background:#820ad1">nu</div>
+                      <div>
+                        <div class="prog-name">Nubank Rewards</div>
+                        <div class="prog-url">nubank.com.br</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>0 pts</td>
+                  <td>R$ 0,00</td>
+                  <td><span style="color:var(--text-muted);font-weight:600">12/06/2026</span></td>
+                  <td><button class="btn-detail">Ver mais</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <span>Mostrando 1 a 8 de 12 programas</span>
+              <div class="page-btns">
+                <button class="page-btn">‹</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">›</button>
+              </div>
+              <span>10 por página ▾</span>
+            </div>
+          </div>
+        </div>
+        <div class="right-panel">
+          <div class="donut-card">
+            <h4>Distribuição do saldo</h4>
+            <div class="donut-wrap">
+              <svg class="donut-svg" width="80" height="80" viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="28" fill="none" stroke="#e5e7eb" stroke-width="12" />
+                <circle cx="40" cy="40" r="28" fill="none" stroke="#10B981" stroke-width="12" stroke-dasharray="106 69"
+                  stroke-dashoffset="0" transform="rotate(-90 40 40)" />
+                <circle cx="40" cy="40" r="28" fill="none" stroke="#22c55e" stroke-width="12" stroke-dasharray="32 143"
+                  stroke-dashoffset="-106" transform="rotate(-90 40 40)" />
+                <circle cx="40" cy="40" r="28" fill="none" stroke="#3b82f6" stroke-width="12" stroke-dasharray="37 138"
+                  stroke-dashoffset="-138" transform="rotate(-90 40 40)" />
+              </svg>
+              <div class="donut-legend">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#059669"></div>
+                  <div>
+                    <div class="legend-val">R$ 411,80</div>
+                    <div class="legend-pct">Cashback (60%)</div>
+                  </div>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#22c55e"></div>
+                  <div>
+                    <div class="legend-val">R$ 124,50</div>
+                    <div class="legend-pct">Pontos (18%)</div>
+                  </div>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#3b82f6"></div>
+                  <div>
+                    <div class="legend-val">R$ 142,60</div>
+                    <div class="legend-pct">Disponível (21%)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="historico-card">
+            <h4>Histórico <span style="color:var(--text-muted);font-weight:400">(Últimos 30 dias)</span></h4>
+            <div class="hrow"><span class="hrow-label">Entradas</span><span class="badge-pos">+ R$ 245,80</span></div>
+            <div class="hrow"><span class="hrow-label">Saídas / Resgates</span><span class="badge-neg">- R$
+                103,40</span></div>
+            <div class="hrow"><span class="hrow-label">Saldo líquido</span><span class="badge-pos">+ R$ 142,40</span>
+            </div>
+            <a class="link-small">Ver extrato completo →</a>
+          </div>
+          <div class="alertas-card">
+            <h4>Alertas importantes</h4>
+            <div class="alerta-item">
+              <div class="alerta-icon" style="background:#fff3e0"><span class="material-symbols-rounded">alarm</span>
+              </div>
+              <div class="alerta-text">
+                <div class="alerta-title">2.340 pts expiram em breve</div>
+                <div class="alerta-sub">Expiram nos próximos 30 dias</div>
+              </div><span>›</span>
+            </div>
+            <div class="alerta-item">
+              <div class="alerta-icon" style="background:#fee2e2"><span
+                  class="material-symbols-rounded">notifications</span></div>
+              <div class="alerta-text">
+                <div class="alerta-title">Resgate disponível</div>
+                <div class="alerta-sub">Você tem R$ 67,30 disponíveis</div>
+              </div><span>›</span>
+            </div>
+            <div class="alerta-item">
+              <div class="alerta-icon" style="background:#dcfce7"><span
+                  class="material-symbols-rounded">check_circle</span></div>
+              <div class="alerta-text">
+                <div class="alerta-title">Tudo atualizado!</div>
+                <div class="alerta-sub">Última atualização há 1 hora</div>
+              </div><span>›</span>
+            </div>
+            <a class="link-small">Ver todos os alertas →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CASHBACKS ===== -->
+    <div class="page" id="page-cashbacks">
+      <div class="page-header">
+        <h2><span class="material-symbols-rounded">payments</span> Cashbacks</h2>
+        <p>Gerencie e acompanhe todo o seu cashback acumulado.</p>
+      </div>
+      <div class="section-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="mini-card">
+          <h5>Total Cashback</h5>
+          <div class="big" style="color:var(--purple)">R$ 411,80</div>
+          <div class="sub">Saldo disponível</div>
+        </div>
+        <div class="mini-card">
+          <h5>Disponível para saque</h5>
+          <div class="big" style="color:var(--green)">R$ 142,60</div>
+          <div class="sub">Saque mínimo: R$ 20,00</div>
+        </div>
+        <div class="mini-card">
+          <h5>Este mês</h5>
+          <div class="big" style="color:var(--orange)">R$ 89,40</div>
+          <div class="sub">+23% vs mês anterior</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Programas de Cashback</span>
+          <div class="search-box"><span><span class="material-symbols-rounded">search</span></span><input type="text"
+              placeholder="Buscar programa..."></div>
+          <button class="btn-ghost">🔽 Filtrar</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Programa</th>
+              <th>Saldo</th>
+              <th>Disponível para saque</th>
+              <th>Última entrada</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="program-cell">
+                  <div class="prog-logo" style="background:#e11d48">m</div>
+                  <div>
+                    <div class="prog-name">Méliuz</div>
+                    <div class="prog-url">meliuz.com.br</div>
+                  </div>
+                </div>
+              </td>
+              <td>R$ 120,50</td>
+              <td>R$ 42,20</td>
+              <td>Hoje, 09:15</td>
+              <td><button class="btn-detail">Sacar</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="program-cell">
+                  <div class="prog-logo" style="background:#e91e63">♥</div>
+                  <div>
+                    <div class="prog-name">Ame Digital</div>
+                    <div class="prog-url">amedigital.com</div>
+                  </div>
+                </div>
+              </td>
+              <td>R$ 89,30</td>
+              <td>R$ 50,30</td>
+              <td>Hoje, 08:45</td>
+              <td><button class="btn-detail">Sacar</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="program-cell">
+                  <div class="prog-logo" style="background:#111">a</div>
+                  <div>
+                    <div class="prog-name">Amazon</div>
+                    <div class="prog-url">amazon.com.br</div>
+                  </div>
+                </div>
+              </td>
+              <td>R$ 156,20</td>
+              <td>R$ 30,10</td>
+              <td>Ontem, 22:10</td>
+              <td><button class="btn-detail">Sacar</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="program-cell">
+                  <div class="prog-logo" style="background:#f97316">S</div>
+                  <div>
+                    <div class="prog-name">Shopee</div>
+                    <div class="prog-url">shopee.com.br</div>
+                  </div>
+                </div>
+              </td>
+              <td>R$ 45,80</td>
+              <td>R$ 20,00</td>
+              <td>Ontem, 18:30</td>
+              <td><button class="btn-detail">Sacar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== PONTOS ===== -->
+    <div class="page" id="page-pontos">
+      <div class="page-header">
+        <h2><span class="material-symbols-rounded">star</span> Pontos</h2>
+        <p>Veja e gerencie seus programas de pontos e milhas.</p>
+      </div>
+      <div class="section-grid">
+        <div class="mini-card">
+          <h5>Total de Pontos</h5>
+          <div class="big" style="color:var(--green)">12.450 pts</div>
+          <div class="sub">Equivalem a R$ 124,50</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width:62%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mini-card">
+          <h5>Expirando em breve</h5>
+          <div class="big" style="color:var(--orange)">2.340 pts</div>
+          <div class="sub">Nos próximos 30 dias</div>
+        </div>
+        <div class="mini-card">
+          <h5>Programas ativos</h5>
+          <div class="big" style="color:var(--purple)">4</div>
+          <div class="sub">Livelo, Itaú, Esfera, Nubank</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Programas de Pontos</span></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Programa</th>
+              <th>Saldo</th>
+              <th>Valor estimado</th>
+              <th>Expira em</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="program-cell">
+                  <div class="prog-logo" style="background:#e91e8c">L</div>
+                  <div>
+                    <div class="prog-name">Livelo</div>
+                    <div class="prog-url">livelo.com.br</div>
+                  </div>
+                </div>
+              </td>
+              <td>5.200 pts</td>
+              <td>R$ 52,00</td>
+              <td><span style="color:var(--orange);font-weight:600">20/06/2026</span></td>
+              <td><button class="btn-detail">Resgatar</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="program-cell">
+                  <div class="prog-logo" style="background:#003d8f">i</div>
+                  <div>
+                    <div class="prog-name">Itaú</div>
+                    <div class="prog-url">itau.com.br</div>
+                  </div>
+                </div>
+              </td>
+              <td>3.100 pts</td>
+              <td>R$ 31,00</td>
+              <td><span style="color:var(--red);font-weight:600">20/06/2026</span></td>
+              <td><button class="btn-detail">Resgatar</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="program-cell">
+                  <div class="prog-logo" style="background:#059669">E</div>
+                  <div>
+                    <div class="prog-name">Esfera</div>
+                    <div class="prog-url">esfera.com.vc</div>
+                  </div>
+                </div>
+              </td>
+              <td>4.150 pts</td>
+              <td>R$ 41,50</td>
+              <td><span style="color:var(--red);font-weight:600">10/05/2026</span></td>
+              <td><button class="btn-detail">Resgatar</button></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="program-cell">
+                  <div class="prog-logo" style="background:#820ad1">nu</div>
+                  <div>
+                    <div class="prog-name">Nubank Rewards</div>
+                    <div class="prog-url">nubank.com.br</div>
+                  </div>
+                </div>
+              </td>
+              <td>0 pts</td>
+              <td>R$ 0,00</td>
+              <td>—</td>
+              <td><button class="btn-detail">Ver mais</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== EXTRATO ===== -->
+    <div class="page" id="page-extrato">
+      <div class="page-header">
+        <h2><span class="material-symbols-rounded">description</span> Extrato</h2>
+        <p>Histórico completo de movimentações dos seus cashbacks e pontos.</p>
+      </div>
+      <div class="section-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="mini-card">
+          <h5>Entradas (30 dias)</h5>
+          <div class="big badge-pos">+ R$ 245,80</div>
+        </div>
+        <div class="mini-card">
+          <h5>Saídas / Resgates</h5>
+          <div class="big badge-neg">- R$ 103,40</div>
+        </div>
+        <div class="mini-card">
+          <h5>Saldo Líquido</h5>
+          <div class="big badge-pos">+ R$ 142,40</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Movimentações</span>
+          <div class="search-box"><span><span class="material-symbols-rounded">search</span></span><input type="text"
+              placeholder="Buscar transação..."></div>
+          <button class="btn-ghost"><span class="material-symbols-rounded">calendar_month</span> Período</button>
+          <button class="btn-ghost"><span class="material-symbols-rounded">download</span> Exportar</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Programa</th>
+              <th>Tipo</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hoje, 09:15</td>
+              <td>Cashback recebido — Compra no app</td>
+              <td><span class="badge badge-cashback">Méliuz</span></td>
+              <td>Entrada</td>
+              <td><span class="badge-pos">+ R$ 12,50</span></td>
+            </tr>
+            <tr>
+              <td>Hoje, 08:45</td>
+              <td>Cashback recebido — Marketplace</td>
+              <td><span class="badge badge-cashback">Ame Digital</span></td>
+              <td>Entrada</td>
+              <td><span class="badge-pos">+ R$ 8,90</span></td>
+            </tr>
+            <tr>
+              <td>Ontem, 22:10</td>
+              <td>Cashback recebido — Prime Day</td>
+              <td><span class="badge badge-cashback">Amazon</span></td>
+              <td>Entrada</td>
+              <td><span class="badge-pos">+ R$ 34,20</span></td>
+            </tr>
+            <tr>
+              <td>Ontem, 18:30</td>
+              <td>Saque realizado</td>
+              <td><span class="badge badge-cashback">Méliuz</span></td>
+              <td>Saída</td>
+              <td><span class="badge-neg">- R$ 50,00</span></td>
+            </tr>
+            <tr>
+              <td>Ontem, 16:20</td>
+              <td>Pontos creditados — Fatura</td>
+              <td><span class="badge badge-pontos">Itaú</span></td>
+              <td>Entrada</td>
+              <td><span class="badge-pos">+ 500 pts</span></td>
+            </tr>
+            <tr>
+              <td>Há 2 dias, 14:00</td>
+              <td>Resgate de pontos</td>
+              <td><span class="badge badge-pontos">Livelo</span></td>
+              <td>Saída</td>
+              <td><span class="badge-neg">- 1.200 pts</span></td>
+            </tr>
+            <tr>
+              <td>Há 3 dias, 11:30</td>
+              <td>Cashback recebido — Compra online</td>
+              <td><span class="badge badge-cashback">Shopee</span></td>
+              <td>Entrada</td>
+              <td><span class="badge-pos">+ R$ 15,80</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span>Mostrando 1 a 7 de 48 movimentações</span>
+          <div class="page-btns">
+            <button class="page-btn">‹</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">›</button>
+          </div>
+          <span>10 por página ▾</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RESGATES ===== -->
+    <div class="page" id="page-resgates">
+      <div class="page-header">
+        <h2><span class="icon"><span class="material-symbols-rounded">featured_seasonal_and_gifts</span></span> Resgates
+        </h2>
+        <p>Gerencie e solicite resgates de cashback e pontos.</p>
+      </div>
+      <div class="section-grid" style="grid-template-columns:repeat(2,1fr);max-width:600px">
+        <div class="mini-card">
+          <h5>Disponível para resgate</h5>
+          <div class="big" style="color:var(--purple)">R$ 142,60</div>
+          <div class="sub">Saque mínimo R$ 20,00</div>
+        </div>
+        <div class="mini-card">
+          <h5>Total resgatado</h5>
+          <div class="big" style="color:var(--green)">R$ 387,20</div>
+          <div class="sub">Nos últimos 12 meses</div>
+        </div>
+      </div>
+      <div class="card" style="max-width:520px;padding:24px">
+        <div class="card-title" style="font-size:16px;margin-bottom:18px">Solicitar Resgate</div>
+        <div class="form-group">
+          <label class="form-label">Origem do saldo</label>
+          <select class="form-input">
+            <option>Méliuz — R$ 120,50</option>
+            <option>Amazon — R$ 156,20</option>
+            <option>Ame Digital — R$ 89,30</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Valor a resgatar</label>
+          <input class="form-input" type="number" placeholder="R$ 0,00" min="20">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Destino</label>
+          <select class="form-input">
+            <option>Chave Pix: bárbara@email.com</option>
+            <option>Conta bancária ****1234</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary">Solicitar Resgate</button>
+          <button class="btn-outline">Cancelar</button>
+        </div>
+      </div>
+      <div style="margin-top:20px">
+        <div class="card-title" style="font-size:15px;margin-bottom:12px;padding-left:4px">Histórico de Resgates</div>
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Origem</th>
+                <th>Valor</th>
+                <th>Destino</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ontem, 18:30</td>
+                <td>Méliuz</td>
+                <td>R$ 50,00</td>
+                <td>Pix</td>
+                <td><span class="badge" style="background:#dcfce7;color:#16a34a">✔ Concluído</span></td>
+              </tr>
+              <tr>
+                <td>12/05/2026</td>
+                <td>Amazon</td>
+                <td>R$ 80,00</td>
+                <td>Conta bancária</td>
+                <td><span class="badge" style="background:#dcfce7;color:#16a34a">✔ Concluído</span></td>
+              </tr>
+              <tr>
+                <td>03/05/2026</td>
+                <td>Shopee</td>
+                <td>R$ 30,00</td>
+                <td>Pix</td>
+                <td><span class="badge" style="background:#fef9c3;color:#ca8a04"><span
+                      class="material-symbols-rounded">hourglass_top</span> Pendente</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ALERTAS ===== -->
+    <div class="page" id="page-alertas">
+      <div class="page-header">
+        <h2><span class="material-symbols-rounded">notifications</span> Alertas</h2>
+        <p>Fique por dentro de tudo que acontece com seus cashbacks e pontos.</p>
+      </div>
+      <div class="alert-list-item">
+        <div class="alert-list-icon" style="background:#fff3e0"><span
+            class="material-symbols-rounded">credit_card</span></div>
+        <div class="alert-list-body">
+          <div class="alert-list-title">2.340 pontos expiram em breve</div>
+          <div class="alert-list-sub">Seus pontos Livelo expiram nos próximos 30 dias. Resgate antes que seja tarde!
+          </div>
+        </div>
+        <span class="alert-list-time">Hoje, 08:00</span>
+      </div>
+      <div class="alert-list-item">
+        <div class="alert-list-icon" style="background:#fee2e2"><span
+            class="material-symbols-rounded">notifications</span></div>
+        <div class="alert-list-body">
+          <div class="alert-list-title">Resgate disponível</div>
+          <div class="alert-list-sub">Você tem R$ 67,30 disponíveis para saque imediato via Pix.</div>
+        </div>
+        <span class="alert-list-time">Hoje, 07:30</span>
+      </div>
+      <div class="alert-list-item">
+        <div class="alert-list-icon" style="background:#dcfce7"><span
+            class="material-symbols-rounded">check_circle</span></div>
+        <div class="alert-list-body">
+          <div class="alert-list-title">Tudo atualizado!</div>
+          <div class="alert-list-sub">Todas as suas contas foram sincronizadas com sucesso.</div>
+        </div>
+        <span class="alert-list-time">Há 1 hora</span>
+      </div>
+      <div class="alert-list-item">
+        <div class="alert-list-icon" style="background:#dbeafe"><span
+            class="material-symbols-rounded">credit_card</span></div>
+        <div class="alert-list-body">
+          <div class="alert-list-title">Cashback recebido — Amazon</div>
+          <div class="alert-list-sub">Você recebeu R$ 34,20 de cashback pela sua última compra.</div>
+        </div>
+        <span class="alert-list-time">Ontem, 22:10</span>
+      </div>
+      <div class="alert-list-item">
+        <div class="alert-list-icon" style="background:#ECFDF5"><span
+            class="material-symbols-rounded">celebration</span></div>
+        <div class="alert-list-body">
+          <div class="alert-list-title">Novo programa disponível — Rappi</div>
+          <div class="alert-list-sub">Conecte sua conta Rappi e ganhe até 5% de cashback em pedidos.</div>
+        </div>
+        <span class="alert-list-time">Há 2 dias</span>
+      </div>
+    </div>
+
+    <!-- ===== CONTAS CONECTADAS ===== -->
+    <div class="page" id="page-contas">
+      <div class="page-header">
+        <h2><span class="material-symbols-rounded">link</span> Contas Conectadas</h2>
+        <p>6 plataformas ativas — gerencie suas conexões.</p>
+      </div>
+      <div class="connected-card" style="margin-bottom:20px">
+        <div class="conn-item">
+          <div class="conn-logo" style="background:#ffe8ec">m</div>
+          <h5>Méliuz</h5>
+          <p><span class="status-dot"></span>Ativa</p>
+          <p>Sincronizado há 1h</p><button class="btn-outline"
+            style="font-size:12px;padding:6px 12px">Desconectar</button>
+        </div>
+        <div class="conn-item">
+          <div class="conn-logo" style="background:#fce4ec">♥</div>
+          <h5>Ame Digital</h5>
+          <p><span class="status-dot"></span>Ativa</p>
+          <p>Sincronizado há 2h</p><button class="btn-outline"
+            style="font-size:12px;padding:6px 12px">Desconectar</button>
+        </div>
+        <div class="conn-item">
+          <div class="conn-logo" style="background:#f3f4f6">a</div>
+          <h5>Amazon</h5>
+          <p><span class="status-dot"></span>Ativa</p>
+          <p>Sincronizado há 6h</p><button class="btn-outline"
+            style="font-size:12px;padding:6px 12px">Desconectar</button>
+        </div>
+        <div class="conn-item">
+          <div class="conn-logo" style="background:#fff3e0">S</div>
+          <h5>Shopee</h5>
+          <p><span class="status-dot"></span>Ativa</p>
+          <p>Sincronizado há 8h</p><button class="btn-outline"
+            style="font-size:12px;padding:6px 12px">Desconectar</button>
+        </div>
+        <div class="conn-item">
+          <div class="conn-logo" style="background:#fce4ec">L</div>
+          <h5>Livelo</h5>
+          <p><span class="status-dot"></span>Ativa</p>
+          <p>Sincronizado há 1h</p><button class="btn-outline"
+            style="font-size:12px;padding:6px 12px">Desconectar</button>
+        </div>
+        <div class="conn-item">
+          <div class="conn-logo" style="background:#e3f2fd">i</div>
+          <h5>Itaú</h5>
+          <p><span class="status-dot"></span>Ativa</p>
+          <p>Sincronizado há 3h</p><button class="btn-outline"
+            style="font-size:12px;padding:6px 12px">Desconectar</button>
+        </div>
+      </div>
+      <button class="btn-primary">+ Conectar nova plataforma</button>
+    </div>
+
+    <!-- ===== PREFERÊNCIAS ===== -->
+    <div class="page" id="page-preferencias">
+      <div class="page-header">
+        <h2><span class="material-symbols-rounded">settings</span> Preferências</h2>
+        <p>Personalize como o CashFree funciona para você.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div class="card" style="padding:20px">
+          <div class="card-title" style="margin-bottom:14px">Notificações</div>
+          <div class="toggle-label">Alertas de pontos prestes a expirar<div class="toggle on"
+              onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="toggle-label">Cashback recebido<div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="toggle-label">Resgates concluídos<div class="toggle on" onclick="this.classList.toggle('on')">
+            </div>
+          </div>
+          <div class="toggle-label">Novos programas disponíveis<div class="toggle"
+              onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="toggle-label">Resumo semanal por e-mail<div class="toggle on"
+              onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+        <div class="card" style="padding:20px">
+          <div class="card-title" style="margin-bottom:14px">Aparência & Moeda</div>
+          <div class="form-group">
+            <label class="form-label">Moeda padrão</label>
+            <select class="form-input">
+              <option>BRL — Real Brasileiro</option>
+              <option>USD — Dólar Americano</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tema</label>
+            <select class="form-input">
+              <option>Claro</option>
+              <option>Escuro</option>
+              <option>Automático</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Idioma</label>
+            <select class="form-input">
+              <option>Português (Brasil)</option>
+              <option>English</option>
+            </select>
+          </div>
+          <button class="btn-primary">Salvar preferências</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PERFIL ===== -->
+    <div class="page" id="page-perfil">
+      <div class="page-header">
+        <h2><span class="material-symbols-rounded">person</span> Perfil</h2>
+        <p>Seus dados pessoais e informações de conta.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:260px 1fr;gap:20px">
+        <div class="card" style="padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center">
+          <div class="profile-avatar-big">B</div>
+          <div style="font-size:17px;font-weight:700">Bárbara Oliveira</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:3px">bárbara@email.com</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Membro desde Jan 2024</div>
+          <div
+            style="margin-top:12px;background:var(--purple-light);color:var(--purple);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">
+            Plano Economiza+ <span class="material-symbols-rounded">star</span></div>
+          <button class="btn-outline" style="margin-top:16px;width:100%">Alterar foto</button>
+        </div>
+        <div class="card" style="padding:24px">
+          <div class="card-title" style="margin-bottom:18px">Dados Pessoais</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="form-group"><label class="form-label">Nome completo</label><input class="form-input"
+                value="Bárbara Oliveira"></div>
+            <div class="form-group"><label class="form-label">E-mail</label><input class="form-input"
+                value="bárbara@email.com"></div>
+            <div class="form-group"><label class="form-label">Telefone</label><input class="form-input"
+                value="(11) 99999-8888"></div>
+            <div class="form-group"><label class="form-label">CPF</label><input class="form-input"
+                value="***.***.***-**" disabled style="background:#f3f4f6"></div>
+            <div class="form-group"><label class="form-label">Data de nascimento</label><input class="form-input"
+                type="date" value="1995-04-12"></div>
+            <div class="form-group"><label class="form-label">Chave Pix</label><input class="form-input"
+                value="bárbara@email.com"></div>
+          </div>
+          <div class="btn-row" style="margin-top:8px">
+            <button class="btn-primary">Salvar alterações</button>
+            <button class="btn-outline">Alterar senha</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== AJUDA ===== -->
+    <div class="page" id="page-ajuda">
+      <div class="page-header">
+        <h2><span class="material-symbols-rounded">help</span> Ajuda</h2>
+        <p>Central de suporte CashFree — encontre respostas rápidas.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+        <div class="card" style="padding:18px">
+          <div style="font-size:28px;margin-bottom:8px"><span class="material-symbols-rounded">chat</span></div>
+          <div class="card-title" style="margin-bottom:6px">Chat ao vivo</div>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px">Fale com nossa equipe agora mesmo.
+            Disponível seg–sex, 8h–20h.</p>
+          <button class="btn-primary">Iniciar conversa</button>
+        </div>
+        <div class="card" style="padding:18px">
+          <div style="font-size:28px;margin-bottom:8px"><span class="material-symbols-rounded">mail</span></div>
+          <div class="card-title" style="margin-bottom:6px">E-mail</div>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px">Envie sua dúvida e responderemos em até
+            24 horas.</p>
+          <button class="btn-outline">Enviar e-mail</button>
+        </div>
+      </div>
+      <div class="card" style="padding:20px">
+        <div class="card-title" style="margin-bottom:16px">Perguntas Frequentes</div>
+        <details style="margin-bottom:10px;border:1px solid var(--border);border-radius:9px;padding:12px 14px">
+          <summary style="cursor:pointer;font-size:14px;font-weight:600">Como faço para sacar meu cashback?</summary>
+          <p style="font-size:13.5px;color:var(--text-muted);margin-top:8px;line-height:1.6">Acesse a página
+            <strong>Resgates</strong>, escolha a origem, o valor (mínimo R$ 20,00) e a chave Pix. O saldo cai em até 1
+            dia útil.
+          </p>
+        </details>
+        <details style="margin-bottom:10px;border:1px solid var(--border);border-radius:9px;padding:12px 14px">
+          <summary style="cursor:pointer;font-size:14px;font-weight:600">Meus pontos têm prazo de validade?</summary>
+          <p style="font-size:13.5px;color:var(--text-muted);margin-top:8px;line-height:1.6">Depende do programa. Cada
+            parceiro tem suas próprias regras. Você pode checar a data de expiração na aba <strong>Pontos</strong>.</p>
+        </details>
+        <details style="margin-bottom:10px;border:1px solid var(--border);border-radius:9px;padding:12px 14px">
+          <summary style="cursor:pointer;font-size:14px;font-weight:600">Como conectar uma nova plataforma?</summary>
+          <p style="font-size:13.5px;color:var(--text-muted);margin-top:8px;line-height:1.6">Clique em <strong>"+
+              Conectar nova conta"</strong> no topo da tela ou acesse <strong>Contas Conectadas</strong> no menu lateral
+            e clique em "+ Conectar nova plataforma".</p>
+        </details>
+        <details style="border:1px solid var(--border);border-radius:9px;padding:12px 14px">
+          <summary style="cursor:pointer;font-size:14px;font-weight:600">O CashFree é seguro para meus dados?</summary>
+          <p style="font-size:13.5px;color:var(--text-muted);margin-top:8px;line-height:1.6">Sim! Usamos criptografia de
+            ponta a ponta e seguimos todas as normas da LGPD. Nenhum dado sensível é armazenado em nossos servidores.
+          </p>
+        </details>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

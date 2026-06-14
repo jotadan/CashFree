@@ -137,4 +137,65 @@ const CASHFREE_DATA = {
   ],
 
   totals: { activeCoupons: 12, estimatedMonthlySavings: 87.4 },
+
+  // --- Planos de assinatura ---
+  plans: {
+    tiers: [
+      {
+        id: 'free',
+        name: 'Free',
+        price: 0,
+        badge: null,
+        cta: 'Começar Grátis',
+        desc: 'Para organizar seus benefícios sem nenhum custo.',
+        highlights: [
+          'Cupons básicos de lojas parceiras',
+        ],
+      },
+      {
+        id: 'economiza',
+        name: 'Economiza',
+        price: 9.9,
+        badge: 'Mais Popular',
+        cta: 'Assinar Economiza',
+        desc: 'Mais cupons, cashback turbinado e alertas completos.',
+        highlights: [
+          'Cupons exclusivos e ampliados',
+          'Cashback turbinado em até +10%',
+          'Acesso antecipado a campanhas',
+          'Suporte prioritário',
+        ],
+      },
+      {
+        id: 'economiza-plus',
+        name: 'Economiza+',
+        price: 19.9,
+        badge: 'Premium',
+        cta: 'Assinar Economiza+',
+        desc: 'A experiência completa, com vantagens exclusivas.',
+        highlights: [
+          'Tudo do plano Economiza',
+          'Cupons exclusivos premium ilimitados',
+          'Cashback turbinado em até +20%',
+          'Sorteios e brindes exclusivos',
+          'Resgate prioritário de ofertas limitadas',
+        ],
+      },
+    ],
+    // Cada item de "values" segue a ordem dos planos acima (Free, Economiza, Economiza+).
+    // true/false => ✓ / ✕  |  string => texto exibido na célula
+    benefits: [
+      { label: 'Cupons de lojas parceiras', values: ['Básicos', 'Exclusivos', 'Exclusivos Premium'] },
+      { label: 'Quantidade de cupons disponíveis', values: ['Limitada', 'Ampliada', 'Ilimitada'] },
+      { label: 'Acesso antecipado a campanhas', values: [false, true, true] },
+      { label: 'Cupons com maior desconto', values: [false, true, true] },
+      { label: 'Promoções exclusivas para assinantes', values: [false, true, true] },
+      { label: 'Cashback turbinado em campanhas especiais', values: [false, 'Até +10%', 'Até +20%'] },
+      { label: 'Sorteios e brindes exclusivos', values: [false, false, true] },
+      { label: 'Notificação de cupons próximos do vencimento', values: [false, true, true] },
+      { label: 'Resgate prioritário de ofertas limitadas', values: [false, false, true] },
+      { label: 'Suporte prioritário', values: [false, true, true] },
+      { label: 'Selo de Assinante no perfil', values: [false, true, true] },
+    ],
+  },
 }
