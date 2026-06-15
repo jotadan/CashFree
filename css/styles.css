@@ -355,23 +355,12 @@ svg {
    box-shadow: var(--shadow-soft);
 }
 
-.nav__mobile {
+.nav {
+   height: var(--header-h);
    display: flex;
-   flex-direction: column;
-   gap: 4px;
-   padding: 12px 20px 20px;
-   background: #fff;
-   border-top: 1px solid var(--ink-100);
-}
-
-.nav__mobile[hidden] {
-   display: none !important;
-}
-
-@media (min-width: 1025px) {
-   .nav__mobile {
-      display: none !important;
-   }
+   align-items: center;
+   justify-content: space-between;
+   gap: 16px;
 }
 
 .logo {
@@ -475,12 +464,24 @@ svg {
 }
 
 .nav__mobile {
-   display: none;
+   display: flex; /* MUDANÇA AQUI: de "none" para "flex" */
    flex-direction: column;
    gap: 4px;
    padding: 12px 20px 20px;
    background: #fff;
    border-top: 1px solid var(--ink-100);
+}
+
+/* Regra vital: quando tiver o atributo "hidden", aí sim ele some */
+.nav__mobile[hidden] {
+   display: none !important;
+}
+
+/* Prevenção: esconder no desktop independentemente do estado */
+@media (min-width: 1025px) {
+   .nav__mobile {
+      display: none !important;
+   }
 }
 
 .nav__mobile a {
