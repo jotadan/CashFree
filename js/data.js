@@ -1,8 +1,5 @@
-/* Dados mockados da CashFree (sem backend).
-   Disponibilizados no escopo global para o app.js consumir. */
 
 const CASHFREE_DATA = {
-  // Programas de cashback / fidelidade conectados
   programs: [
     { id: 'meliuz', name: 'Méliuz', kind: 'cashback', cashback: 38.7, points: 0, expiresInDays: 45, color: '#ec4899', logo: 'M', status: 'conectado' },
     { id: 'ame', name: 'Ame Digital', kind: 'cashback', cashback: 52.3, points: 0, expiresInDays: 18, color: '#7c3aed', logo: 'A', status: 'conectado' },
