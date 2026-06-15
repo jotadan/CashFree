@@ -464,7 +464,7 @@ svg {
 }
 
 .nav__mobile {
-   display: flex; /* MUDANÇA AQUI: de "none" para "flex" */
+   display: flex;
    flex-direction: column;
    gap: 4px;
    padding: 12px 20px 20px;
@@ -472,12 +472,10 @@ svg {
    border-top: 1px solid var(--ink-100);
 }
 
-/* Regra vital: quando tiver o atributo "hidden", aí sim ele some */
 .nav__mobile[hidden] {
    display: none !important;
 }
 
-/* Prevenção: esconder no desktop independentemente do estado */
 @media (min-width: 1025px) {
    .nav__mobile {
       display: none !important;
