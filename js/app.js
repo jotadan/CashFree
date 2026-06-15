@@ -72,7 +72,6 @@
   var onlyExpiring = false;
 
   function initDashboard() {
-    // Resumo
     var totalCash = D.programs.reduce(function (s, p) { return s + p.cashback; }, 0);
     var totalPts = D.programs.reduce(function (s, p) { return s + p.points; }, 0);
     var summary = [
@@ -86,7 +85,6 @@
         '<div><p class="l">' + s.l + '</p><p class="v">' + s.v + '</p></div></div>');
     }));
 
-    // Abas
     var tabs = $('#tabs');
     tabs.querySelectorAll('.tab').forEach(function (btn) {
       btn.addEventListener('click', function () {
