@@ -227,7 +227,6 @@
   }
 
   function renderStores() {
-    // Estado dos filtros
     $('#storeFilters').querySelectorAll('.filter').forEach(function (b) {
       b.classList.remove('is-active', 'is-active--soft');
       if (b.dataset.cat !== undefined && b.dataset.cat === storeCategory) b.classList.add('is-active');
@@ -544,11 +543,9 @@
       if (e.key === 'Escape' && activeModal) closeModal(activeModal.id);
     });
 
-    // Alternar entre login e cadastro
     $('#goToRegister').addEventListener('click', function (e) { e.preventDefault(); closeModal('loginOverlay'); openModal('registerOverlay'); });
     $('#goToLogin').addEventListener('click', function (e) { e.preventDefault(); closeModal('registerOverlay'); openModal('loginOverlay'); });
 
-    // Esqueci minha senha
     $('#forgotPasswordLink').addEventListener('click', function (e) {
       e.preventDefault();
       $('#forgotPasswordHint').removeAttribute('hidden');
@@ -572,19 +569,15 @@
       // 1. Salvar sessão no localStorage
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userEmail", email.value.trim());
-      // Como não temos o nome no login, podemos deixar genérico ou buscar de uma base de dados real no futuro
       if (!localStorage.getItem("userName")) {
         localStorage.setItem("userName", "Usuário");
       }
-
-      // 2. Exibir feedback visual e redirecionar
       showSuccess(loginForm, 'Login realizado! 🎉', 'Redirecionando para o seu dashboard...');
       setTimeout(function () {
         window.location.href = "dashboard.html";
       }, 1500); // Aguarda 1.5 segundos para o usuário ler a mensagem
     });
 
-    // ---- Formulário de cadastro ----
     // ---- Formulário de cadastro ----
     var registerForm = $('#registerForm');
     registerForm.addEventListener('submit', function (e) {
@@ -606,12 +599,10 @@
 
       if (!ok) return;
 
-      // 1. Salvar sessão no localStorage
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userName", name.value.trim());
       localStorage.setItem("userEmail", email.value.trim());
 
-      // 2. Exibir feedback visual e redirecionar
       showSuccess(registerForm, 'Conta criada com sucesso! 🎉', 'Preparando o seu ambiente CashFree...');
       setTimeout(function () {
         window.location.href = "dashboard.html";
